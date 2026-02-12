@@ -34,19 +34,27 @@ authRouter.post("/register", async (req, res) => {
 
     const token = jwt.sign(
         {
-            id:user._id
+            id: user._id
         },
         process.env.JWT_SECRET,
-        {expiresIn:"1d"}
+        { expiresIn: "1d" }
 
     )
 
-    res.cookie("token", token )
+    res.cookie("token", token)
 
     res.staatus(201).json({
-        messaage:"user created successfully"
+        messaage: "User registered successfully",
+        user: {
+            username: user.username,
+            email: user.email,
+            bio: user.bio,
+            profileImage: user.profileImage
+        }
     })
 
 
 
 })
+
+module.exports = authRouter
