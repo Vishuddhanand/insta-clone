@@ -12,9 +12,6 @@ const imagekit = new ImageKit({
 async function createPostController(req, res) {
     console.log(req.body, req.file)
 
-    
-
-
     const file = await imagekit.files.upload({
         file: await toFile(Buffer.from(req.file.buffer), "file"),
         fileName: "Test",
@@ -37,7 +34,7 @@ async function createPostController(req, res) {
 }
 
 async function getPostController(req, res) {
-    
+
 
     const userId = req.user.id
 
@@ -55,28 +52,28 @@ async function getPostController(req, res) {
 }
 
 async function getPostDetailsController(req, res) {
-    
+
     const userId = req.user.id
     const postId = req.params.postId
 
-    const post = await postModel.findById(postId) 
+    const post = await postModel.findById(postId)
 
-    if(!post){
+    if (!post) {
         return res.status(404).json({
-            message:"Post not found."
+            message: "Post not found."
         })
     }
 
     const isUserValid = post.user.toString() === userId
 
-    if(!isUserValid){
+    if (!isUserValid) {
         return res.status(403).json({
-            message:"Forbidden Content"
+            message: "Forbidden Content"
         })
     }
 
     return res.status(200).json({
-        message:"Post fetched successfully",
+        message: "Post fetched successfully",
         post
     })
 
