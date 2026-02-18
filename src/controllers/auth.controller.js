@@ -16,7 +16,7 @@ async function registerController(req, res) {
     if (isUserAlreadyExists) {
         return res.status(409)
             .json({
-                messaage: "User Already exists" + (isUserAlreadyExists.username == username ? "Username Already Exists" : "Email Already Exists")
+                message: "User Already exists" + (isUserAlreadyExists.username == username ? "Username Already Exists" : "Email Already Exists")
             })
     }
 
@@ -32,7 +32,8 @@ async function registerController(req, res) {
 
     const token = jwt.sign(
         {
-            id: user._id
+            id: user._id,
+            username: user.username
         },
         process.env.JWT_SECRET,
         { expiresIn: "1d" }
@@ -42,7 +43,7 @@ async function registerController(req, res) {
     res.cookie("token", token)
 
     res.status(201).json({
-        messaage: "User registered successfully",
+        message: "User registered successfully",
         user: {
             username: user.username,
             email: user.email,
@@ -82,7 +83,8 @@ async function loginController(req, res) {
 
     const token = jwt.sign(
         {
-            id: user._id
+            id: user._id,
+            username: user.username
         },
         process.env.JWT_SECRET,
         { expiresIn: "1d" }
