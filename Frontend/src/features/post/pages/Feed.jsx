@@ -30,7 +30,9 @@ const Feed = () => {
         <main className="feed-page">
             <div className="feed">
                 <div className="posts">
-                    <Post />
+                    {feed.map(post => {
+                        return <Post user={post.user} post={post}/>
+                    })}
                 </div>
 
             </div>
