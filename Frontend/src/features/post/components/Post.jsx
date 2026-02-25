@@ -1,17 +1,19 @@
 import React from 'react'
 
-const Post = () => {
+const Post = (props) => {
+
+    console.log(props.post)
     return (
         <div className="post">
 
             <div className="user">
                 <div className="img-wrapper">
 
-                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+                    <img src={props.user.profileImage} alt="profile image" />
                 </div>
-                <p>username</p>
+                <p>{props.user.username}</p>
             </div>
-            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+            <img src={props.post.imgUrl} alt="post image" />
 
             <div className="icons">
                 <div className="left">
@@ -25,7 +27,7 @@ const Post = () => {
 
             </div>
             <div className="bottom">
-                <div className="caption">sample caption</div>
+                <div className="caption">{props.post.caption}</div>
             </div>
         </div>
     )
