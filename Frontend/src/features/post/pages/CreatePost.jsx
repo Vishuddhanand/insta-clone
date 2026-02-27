@@ -1,15 +1,32 @@
 import React, { useState, useRef } from 'react'
 import "../style/createPost.scss"
+import { usePost } from '../hooks/usePost'
+import { useNavigate } from 'react-router'
 
 const CreatePost = () => {
     const [caption, setCaption] = useState("")
-    const postImageRef = useRef()
+    const postImageRef = useRef(null)
+
+    const navigate = useNavigate()
+
+    const { loading, handleCreatePost } = usePost()
 
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
 
         const file = postImageRef.current.files[0]
+
+        await handleCreatePost(file, caption)
+        navigate('/')
+    }
+
+    if (loading) {
+        return (
+            <main>
+                <h1>Creating Post...</h1>
+            </main>
+        )
     }
 
     return (

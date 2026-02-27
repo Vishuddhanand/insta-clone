@@ -1,19 +1,33 @@
-import { getFeed } from "../services/post.api";
+import { getFeed, createPost } from "../services/post.api";
 import { useContext } from "react";
 import { PostContext } from "../post.context";
+import { useEffect } from "react";
 
-export const usePost = ()=>{
+export const usePost = () => {
     const context = useContext(PostContext)
 
     const { loading, setLoading, post, setPost, feed, setFeed } = context
 
-    const handleGetFeed = async ()=>{
+    const handleGetFeed = async () => {
         setLoading(true)
         const data = await getFeed()
         setFeed(data.posts)
         setLoading(false)
     }
 
-    return { loading, post, feed, handleGetFeed }
+    const handleCreatePost = async (postImage, caption) => {
+        setLoading(true)
+        const data = await createPost(postImage, caption)
+        setFeed([data.post, ...feed])
+        setLoading(false)
+
+    }
+
+    useEffect(function(){
+        handleGetFeed()
+
+    },[])
+
+    return { loading, post, feed, handleGetFeed, handleCreatePost }
 
 }
