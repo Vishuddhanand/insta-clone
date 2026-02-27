@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar'
 
 const Feed = () => {
 
-    const { loading, handleGetFeed, feed } = usePost()
+    const { loading, handleGetFeed, feed, handleLikePost, handleUnlikePost } = usePost()
 
     useEffect(function () {
         handleGetFeed()
@@ -26,11 +26,11 @@ const Feed = () => {
 
     return (
         <main className="feed-page">
-            <Navbar/>
+            <Navbar />
             <div className="feed">
                 <div className="posts">
                     {feed.map(post => {
-                        return <Post user={post.user} post={post}/>
+                        return <Post user={post.user} post={post} loading={loading} handleLikePost={handleLikePost} handleUnlikePost={handleUnlikePost} />
                     })}
                 </div>
 
